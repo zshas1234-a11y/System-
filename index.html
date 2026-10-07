@@ -1,0 +1,1279 @@
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QISTZONE - Easy Monthly Installments | Ab Har Cheez Qist Pe</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                            gold: '#f59e0b',
+                            dark: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-brand-700 via-brand-600 to-emerald-900 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-sm">
+        <span>✨ <strong>Aasan Mahana Qist!</strong> 0% Markup Special Plans Available. Firebase Live Synced Storefront! 🚀</span>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Logo -->
+            <a href="#" onclick="showSection('store')" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-gold flex items-center justify-center shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-bolt text-2xl text-slate-950 font-black"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-black tracking-wider text-white">QIST<span class="text-brand-500">ZONE</span></span>
+                    <p class="text-[10px] text-slate-400 font-semibold tracking-widest uppercase -mt-1">Ab Har Cheez Qist Pe</p>
+                </div>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md mx-6 relative">
+                <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Search phones, AC, bikes, LED TV..." 
+                       class="w-full bg-slate-800/80 border border-slate-700 text-slate-200 placeholder-slate-400 rounded-full py-2.5 pl-11 pr-4 focus:outline-none focus:border-brand-500 text-sm transition">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400 text-sm"></i>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="flex items-center gap-3">
+                <button onclick="showSection('store')" class="px-3 py-2 text-sm font-medium hover:text-brand-500 transition hidden sm:inline-block">Store</button>
+                <button onclick="scrollToCalculator()" class="px-3 py-2 text-sm font-medium hover:text-brand-500 transition hidden sm:inline-block">Calculator</button>
+                
+                <!-- Admin Access Button -->
+                <button id="navAdminBtn" onclick="toggleAdminAccess()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-xl text-sm font-medium border border-slate-700 transition flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-brand-500"></i>
+                    <span>Admin Panel</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- ================= STOREFRONT VIEW ================= -->
+        <div id="storeView" class="block space-y-12 pb-16">
+
+            <!-- HERO BANNER -->
+            <section class="relative overflow-hidden bg-slate-900 pt-10 pb-16 border-b border-slate-800/80">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-900/30 via-slate-900 to-slate-950 pointer-events-none"></div>
+                
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-500 text-xs font-semibold uppercase tracking-wider">
+                                <i class="fa-solid fa-shield-halved"></i> Fast Doorstep Verification & Delivery
+                            </span>
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                                Apni Pasand Ki Cheez Layein, <span class="gradient-text">Aasan Qist Par!</span>
+                            </h1>
+                            <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                                Buy Mobile Phones, Laptops, Home Appliances, and Bikes on quick and easy monthly installments with minimum down payment and flexible tenure.
+                            </p>
+                            
+                            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                                <a href="#catalog" class="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-brand-500/25 transition transform active:scale-95 flex items-center gap-2">
+                                    <i class="fa-solid fa-bag-shopping"></i> Browse Products
+                                </a>
+                                <button onclick="scrollToCalculator()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold px-6 py-3.5 rounded-xl transition flex items-center gap-2">
+                                    <i class="fa-solid fa-calculator text-brand-500"></i> Calculate Qist
+                                </button>
+                            </div>
+
+                            <!-- Trust Badges -->
+                            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800 text-left max-w-lg mx-auto lg:mx-0">
+                                <div>
+                                    <p class="text-xs text-slate-400">Minimum Advance</p>
+                                    <p class="text-lg font-bold text-slate-100">Only 20%</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-400">Flexible Plans</p>
+                                    <p class="text-lg font-bold text-slate-100">3 - 12 Months</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-400">Approval Time</p>
+                                    <p class="text-lg font-bold text-slate-100">24 - 48 Hours</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hero Widget -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative w-full max-w-md p-6 glass-card rounded-3xl border border-slate-700/50 shadow-2xl">
+                                <div class="absolute -top-3 -right-3 bg-brand-gold text-slate-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                                    Featured Item
+                                </div>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&auto=format&fit=crop&q=80" alt="iPhone 15 Pro Max" class="w-20 h-20 object-cover rounded-2xl bg-slate-800">
+                                    <div>
+                                        <h3 class="font-bold text-lg text-white">iPhone 15 Pro Max</h3>
+                                        <p class="text-xs text-slate-400">256GB Titanium - Official PTA</p>
+                                        <div class="mt-2 inline-block bg-brand-500/20 text-brand-500 font-bold text-xs px-2.5 py-1 rounded-lg">
+                                            Qist: PKR 38,500 / month
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-900/80 p-4 rounded-xl space-y-2 text-xs text-slate-300">
+                                    <div class="flex justify-between">
+                                        <span>Total Cash Price:</span>
+                                        <span class="font-semibold text-slate-100">PKR 450,000</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Advance Payment (20%):</span>
+                                        <span class="font-semibold text-brand-gold">PKR 90,000</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Tenure:</span>
+                                        <span class="font-semibold text-slate-100">12 Months</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INSTALLMENT CALCULATOR SECTION -->
+            <section id="calculatorSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+                <div class="glass-card rounded-3xl p-6 sm:p-10 border border-brand-500/20 bg-gradient-to-b from-slate-900 to-slate-950 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="text-center max-w-2xl mx-auto mb-8">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+                            <i class="fa-solid fa-calculator text-brand-500 mr-2"></i> Installment Calculator
+                        </h2>
+                        <p class="text-slate-400 text-sm mt-2">Apne budget ke mutabiq mahana qist calculate karein.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <!-- Inputs -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Total Item Price (PKR)</label>
+                                <div class="relative">
+                                    <input type="number" id="calcPrice" value="100000" min="10000" step="5000" oninput="calculateQist()" 
+                                           class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl py-3 px-4 pl-12 text-lg font-bold focus:outline-none focus:border-brand-500">
+                                    <span class="absolute left-4 top-3.5 text-slate-400 font-bold">Rs</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                                    <span>Advance / Down Payment</span>
+                                    <span id="calcAdvanceLabel" class="text-brand-gold font-bold">20% (PKR 20,000)</span>
+                                </div>
+                                <input type="range" id="calcAdvancePercent" min="15" max="50" value="20" step="5" oninput="calculateQist()"
+                                       class="w-full accent-brand-500 h-2 bg-slate-800 rounded-lg cursor-pointer">
+                                <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+                                    <span>15%</span>
+                                    <span>30%</span>
+                                    <span>50%</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Select Tenure (Duration)</label>
+                                <div class="grid grid-cols-4 gap-3">
+                                    <button type="button" onclick="setTenure(3)" class="tenure-btn bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 py-2.5 rounded-xl text-sm font-bold transition text-center" data-months="3">3 Months</button>
+                                    <button type="button" onclick="setTenure(6)" class="tenure-btn bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 py-2.5 rounded-xl text-sm font-bold transition text-center" data-months="6">6 Months</button>
+                                    <button type="button" onclick="setTenure(9)" class="tenure-btn bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 py-2.5 rounded-xl text-sm font-bold transition text-center" data-months="9">9 Months</button>
+                                    <button type="button" onclick="setTenure(12)" class="tenure-btn bg-brand-600 text-white border border-brand-500 py-2.5 rounded-xl text-sm font-bold transition text-center" data-months="12">12 Months</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Result Display Card -->
+                        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between space-y-6">
+                            <div>
+                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800 pb-3">Estimate Summary</h3>
+                                
+                                <div class="space-y-4 pt-4">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-400">Advance Payment:</span>
+                                        <span id="calcDisplayAdvance" class="font-bold text-brand-gold">PKR 20,000</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-400">Financed Amount:</span>
+                                        <span id="calcDisplayRemaining" class="font-bold text-slate-200">PKR 80,000</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-400">Plan Duration:</span>
+                                        <span id="calcDisplayTenure" class="font-bold text-slate-200">12 Months</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-brand-500/10 border border-brand-500/30 p-4 rounded-xl text-center">
+                                <p class="text-xs text-brand-500 font-bold uppercase tracking-wider">Estimated Monthly Qist</p>
+                                <p id="calcDisplayMonthly" class="text-3xl font-black text-white mt-1">PKR 7,833 <span class="text-xs font-normal text-slate-400">/mo</span></p>
+                            </div>
+
+                            <p class="text-[11px] text-slate-500 text-center">Note: Final installment details may slightly vary based on physical verification.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRODUCT CATALOG SECTION -->
+            <section id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+                
+                <!-- Category Filter Pills -->
+                <div class="flex items-center justify-between flex-wrap gap-4 mb-8">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-white">Available Products</h2>
+                        <p class="text-slate-400 text-sm">Real-time inventory connected via Firebase</p>
+                    </div>
+
+                    <div id="categoryContainer" class="flex flex-wrap gap-2">
+                        <!-- Dynamic Categories -->
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Dynamic Product Cards Injected from Firebase -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="hidden text-center py-16 bg-slate-900/50 rounded-2xl border border-slate-800">
+                    <i class="fa-solid fa-box-open text-5xl text-slate-600 mb-3"></i>
+                    <h3 class="text-lg font-bold text-slate-300">No Products Found</h3>
+                    <p class="text-sm text-slate-500">Try changing your search term or category filter.</p>
+                </div>
+            </section>
+
+            <!-- HOW IT WORKS SECTION -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-12">
+                    <div class="text-center max-w-xl mx-auto mb-10">
+                        <h2 class="text-2xl font-extrabold text-white">Qist Pe Lenay Ka Tarika (How It Works)</h2>
+                        <p class="text-slate-400 text-sm mt-1">Sirf 3 aasan steps mein apni favorite product hasil karein.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center p-6 bg-slate-950/60 rounded-2xl border border-slate-800/80">
+                            <div class="w-14 h-14 bg-brand-500/10 text-brand-500 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 border border-brand-500/20">1</div>
+                            <h3 class="font-bold text-lg text-white mb-2">Select Item & Apply</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">Apni pasand ki product select karein, installment plan chunain aur online form fill karein.</p>
+                        </div>
+                        <div class="text-center p-6 bg-slate-950/60 rounded-2xl border border-slate-800/80">
+                            <div class="w-14 h-14 bg-brand-gold/10 text-brand-gold rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 border border-brand-gold/20">2</div>
+                            <h3 class="font-bold text-lg text-white mb-2">Quick Verification</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">Hamari team 24-48 ghanto mein aap ke CNIC aur basic details ki verification karegi.</p>
+                        </div>
+                        <div class="text-center p-6 bg-slate-950/60 rounded-2xl border border-slate-800/80">
+                            <div class="w-14 h-14 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 border border-blue-500/20">3</div>
+                            <h3 class="font-bold text-lg text-white mb-2">Pay Advance & Receive</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">Approval ke baad Advance amount pay karein aur apni product ghar mangwayein!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= ADMIN PANEL VIEW ================= -->
+        <div id="adminView" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-800 flex-wrap gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-500 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span> Firebase Live Dashboard
+                    </span>
+                    <h1 class="text-3xl font-extrabold text-white">QISTZONE Admin Panel</h1>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="showSection('store')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-700 transition">
+                        <i class="fa-solid fa-store mr-2"></i> View Storefront
+                    </button>
+                    <button onclick="logoutAdmin()" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 px-4 py-2 rounded-xl text-sm font-semibold transition">
+                        <i class="fa-solid fa-right-from-bracket mr-2"></i> Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Stats -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
+                    <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Live Inventory Items</p>
+                    <p id="statTotalProducts" class="text-3xl font-black text-white mt-2">0</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
+                    <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Total Applications</p>
+                    <p id="statTotalApps" class="text-3xl font-black text-brand-gold mt-2">0</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
+                    <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Approved Applications</p>
+                    <p id="statApprovedApps" class="text-3xl font-black text-brand-500 mt-2">0</p>
+                </div>
+            </div>
+
+            <!-- Admin Tabs -->
+            <div class="flex border-b border-slate-800 mb-6 gap-6">
+                <button id="tabBtnProducts" onclick="switchAdminTab('products')" class="pb-3 font-bold text-brand-500 border-b-2 border-brand-500 transition">Manage Products</button>
+                <button id="tabBtnApps" onclick="switchAdminTab('apps')" class="pb-3 font-bold text-slate-400 hover:text-slate-200 transition flex items-center gap-2">
+                    <span>Customer Applications</span>
+                    <span id="appBadge" class="bg-brand-500/20 text-brand-500 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                </button>
+            </div>
+
+            <!-- TAB 1: MANAGE PRODUCTS -->
+            <div id="adminTabProducts" class="space-y-8">
+                <!-- Add New Product Form -->
+                <div class="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-2xl">
+                    <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-square-plus text-brand-500"></i> Add Product to Firebase Database
+                    </h2>
+
+                    <form id="addProductForm" onsubmit="handleProductSubmit(event)" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Product Title</label>
+                            <input type="text" id="pTitle" required placeholder="e.g. Samsung S24 Ultra" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:border-brand-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Category</label>
+                            <select id="pCategory" required class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:border-brand-500">
+                                <option value="Mobile Phones">Mobile Phones</option>
+                                <option value="Electronics & LED">Electronics & LED</option>
+                                <option value="Home Appliances">Home Appliances</option>
+                                <option value="Laptops & Computers">Laptops & Computers</option>
+                                <option value="Bikes & Scooters">Bikes & Scooters</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Total Cash Price (PKR)</label>
+                            <input type="number" id="pPrice" required placeholder="150000" oninput="autoCalcAdminQist()" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:border-brand-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Advance Amount (PKR)</label>
+                            <input type="number" id="pAdvance" required placeholder="30000" oninput="autoCalcAdminQist()" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:border-brand-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Plan Tenure (Months)</label>
+                            <select id="pTenure" onchange="autoCalcAdminQist()" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:border-brand-500">
+                                <option value="3">3 Months</option>
+                                <option value="6">6 Months</option>
+                                <option value="9">9 Months</option>
+                                <option value="12" selected>12 Months</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Calculated Monthly Qist (PKR)</label>
+                            <input type="number" id="pQist" required placeholder="Auto Calculated" class="w-full bg-slate-950 border border-slate-800 text-brand-500 font-bold rounded-xl py-2.5 px-4 text-sm focus:outline-none">
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Image URL</label>
+                            <input type="url" id="pImage" required placeholder="https://images.unsplash.com/..." class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:border-brand-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Stock Status</label>
+                            <select id="pStock" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:border-brand-500">
+                                <option value="In Stock">In Stock</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                            </select>
+                        </div>
+
+                        <div class="md:col-span-3">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Key Specifications / Specs</label>
+                            <input type="text" id="pSpecs" placeholder="e.g. 8GB RAM, 256GB Storage, Official Warranty" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:border-brand-500">
+                        </div>
+
+                        <div class="md:col-span-3 pt-2">
+                            <button type="submit" id="addProductBtn" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl transition flex items-center gap-2">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Save to Firebase Store
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Product Table -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                    <div class="p-6 border-b border-slate-800">
+                        <h3 class="text-lg font-bold text-white">Firestore Product Inventory</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-300">
+                            <thead class="bg-slate-950 text-xs font-bold uppercase text-slate-400 border-b border-slate-800">
+                                <tr>
+                                    <th class="p-4">Item</th>
+                                    <th class="p-4">Category</th>
+                                    <th class="p-4">Cash Price</th>
+                                    <th class="p-4">Advance</th>
+                                    <th class="p-4">Monthly Qist</th>
+                                    <th class="p-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminProductsTable" class="divide-y divide-slate-800">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: CUSTOMER APPLICATIONS -->
+            <div id="adminTabApps" class="hidden space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                    <div class="p-6 border-b border-slate-800 flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-white">Firestore Submitted Applications</h3>
+                        <span class="text-xs text-slate-400">Live updating</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-300">
+                            <thead class="bg-slate-950 text-xs font-bold uppercase text-slate-400 border-b border-slate-800">
+                                <tr>
+                                    <th class="p-4">Date</th>
+                                    <th class="p-4">Customer Info</th>
+                                    <th class="p-4">Product</th>
+                                    <th class="p-4">Monthly Qist</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminAppsTable" class="divide-y divide-slate-800">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 text-sm py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div class="space-y-4">
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-gold flex items-center justify-center">
+                        <i class="fa-solid fa-bolt text-xl text-slate-950 font-black"></i>
+                    </div>
+                    <span class="text-xl font-black text-white">QIST<span class="text-brand-500">ZONE</span></span>
+                </a>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Pakistan's trusted online installment shopping portal. Get electronics, mobile phones & home appliances on flexible monthly qist plans.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold text-sm mb-3 uppercase tracking-wider">Quick Links</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#catalog" class="hover:text-brand-500 transition">Mobile Phones</a></li>
+                    <li><a href="#catalog" class="hover:text-brand-500 transition">Electronics</a></li>
+                    <li><a href="#catalog" class="hover:text-brand-500 transition">Home Appliances</a></li>
+                    <li><a href="#catalog" class="hover:text-brand-500 transition">Bikes & Scooters</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold text-sm mb-3 uppercase tracking-wider">Required Documents</h4>
+                <ul class="space-y-2 text-xs text-slate-400">
+                    <li><i class="fa-solid fa-check text-brand-500 mr-2"></i> CNIC Copy (Customer)</li>
+                    <li><i class="fa-solid fa-check text-brand-500 mr-2"></i> 1 Guarantor CNIC Copy</li>
+                    <li><i class="fa-solid fa-check text-brand-500 mr-2"></i> Utility Bill Copy</li>
+                    <li><i class="fa-solid fa-check text-brand-500 mr-2"></i> Proof of Income/Salary</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold text-sm mb-3 uppercase tracking-wider">Contact & Support</h4>
+                <p class="text-xs mb-2"><i class="fa-solid fa-phone text-brand-500 mr-2"></i> +92 300 1234567</p>
+                <p class="text-xs mb-2"><i class="fa-solid fa-envelope text-brand-500 mr-2"></i> support@qistzone.pk</p>
+                <p class="text-xs"><i class="fa-solid fa-location-dot text-brand-500 mr-2"></i> Main Commercial Area, Karachi / Lahore</p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+            <p>© 2026 QISTZONE. Powered by Firebase Firestore Realtime Engine.</p>
+            <div class="flex gap-4">
+                <a href="javascript:void(0)" onclick="promptAdminLogin()" class="hover:text-brand-500 transition"><i class="fa-solid fa-lock text-slate-600 mr-1"></i> Admin Login (/admin)</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- 1. ADMIN AUTH MODAL -->
+    <div id="adminAuthModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl">
+            <button onclick="closeModal('adminAuthModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 bg-brand-500/10 text-brand-500 rounded-2xl flex items-center justify-center mx-auto mb-3 border border-brand-500/20 text-2xl">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="text-2xl font-black text-white">Admin Access</h3>
+                <p class="text-slate-400 text-xs mt-1">Authorized personnel only. Enter admin password.</p>
+            </div>
+
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Admin Password</label>
+                    <input type="password" id="adminPasswordInput" required placeholder="Enter password" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-500">
+                    <p class="text-[11px] text-slate-500 mt-1">Hint: Password is <span class="text-brand-gold font-mono">admin10</span></p>
+                </div>
+
+                <div id="adminAuthError" class="hidden text-rose-400 text-xs bg-rose-500/10 border border-rose-500/20 p-2.5 rounded-xl">
+                    Incorrect password. Please try again!
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-brand-500/20">
+                    Unlock Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. PRODUCT DETAIL & INSTALLMENT APPLICATION MODAL -->
+    <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-3xl w-full p-6 sm:p-8 relative shadow-2xl my-8">
+            <button onclick="closeModal('productDetailModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl z-10 w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modalContent">
+                <!-- Dynamic Javascript Content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 border border-brand-500 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-brand-500 text-xl" id="toastIcon"></i>
+        <span id="toastMsg" class="text-sm font-medium">Notification message</span>
+    </div>
+
+    <!-- FIREBASE MODULE SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            collection, 
+            doc, 
+            setDoc, 
+            addDoc, 
+            deleteDoc, 
+            updateDoc, 
+            onSnapshot, 
+            getDocs 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // User Provided Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyBqkDPahbv24mCWZ6L62V5FxCwKNgApgNU",
+            authDomain: "amar-social-18b48.firebaseapp.com",
+            projectId: "amar-social-18b48",
+            storageBucket: "amar-social-18b48.firebasestorage.app",
+            messagingSenderId: "562759285262",
+            appId: "1:562759285262:web:8996321fcf35a4d65b9a5f"
+        };
+
+        // App ID handling according to environment standard
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'qistzone-app';
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Firestore Collections Path Strategy
+        const productsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+        const appsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'applications');
+
+        // Initial default products for auto-seeding if empty
+        const DEFAULT_SEED_PRODUCTS = [
+            {
+                title: 'iPhone 15 Pro Max (256GB)',
+                category: 'Mobile Phones',
+                price: 450000,
+                advance: 90000,
+                qist: 38500,
+                tenure: 12,
+                image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80',
+                specs: 'Titanium Build, A17 Pro Chip, 48MP Camera, Official PTA Approved',
+                stock: 'In Stock'
+            },
+            {
+                title: 'Samsung Galaxy S24 Ultra',
+                category: 'Mobile Phones',
+                price: 399000,
+                advance: 80000,
+                qist: 34000,
+                tenure: 12,
+                image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600&auto=format&fit=crop&q=80',
+                specs: '12GB RAM, 512GB Storage, S-Pen Included, 200MP Camera',
+                stock: 'In Stock'
+            },
+            {
+                title: 'Dawlance 1.5 Ton Inverter AC',
+                category: 'Home Appliances',
+                price: 165000,
+                advance: 33000,
+                qist: 14200,
+                tenure: 12,
+                image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&auto=format&fit=crop&q=80',
+                specs: 'Energy Efficient, Dual Rotary Compressor, Heating & Cooling',
+                stock: 'In Stock'
+            },
+            {
+                title: 'Honda CG 125 Self Start',
+                category: 'Bikes & Scooters',
+                price: 285000,
+                advance: 57000,
+                qist: 24500,
+                tenure: 12,
+                image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&auto=format&fit=crop&q=80',
+                specs: '4-Stroke 125cc Engine, 5-Speed Transmission, High Resale',
+                stock: 'In Stock'
+            }
+        ];
+
+        // GLOBAL APP STATE
+        window.products = [];
+        window.applications = [];
+        window.activeCategory = 'All';
+        window.selectedTenure = 12;
+        window.isAdminLoggedIn = false;
+
+        // AUTH & INIT
+        async function initFirebaseApp() {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                // Attach Realtime Listeners
+                listenToProducts();
+                listenToApplications();
+            } catch (err) {
+                console.error("Firebase Auth Error:", err);
+            }
+        }
+
+        // LISTEN TO PRODUCTS
+        function listenToProducts() {
+            onSnapshot(productsColRef, async (snapshot) => {
+                if (snapshot.empty) {
+                    // Seed initial data if collection empty
+                    for (const prod of DEFAULT_SEED_PRODUCTS) {
+                        await addDoc(productsColRef, prod);
+                    }
+                    return;
+                }
+
+                window.products = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                renderCategories();
+                renderProducts();
+                if (window.isAdminLoggedIn) renderAdminDashboard();
+            }, (error) => {
+                console.error("Products Firestore Listener error:", error);
+            });
+        }
+
+        // LISTEN TO APPLICATIONS
+        function listenToApplications() {
+            onSnapshot(appsColRef, (snapshot) => {
+                window.applications = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                if (window.isAdminLoggedIn) renderAdminDashboard();
+            }, (error) => {
+                console.error("Apps Firestore Listener error:", error);
+            });
+        }
+
+        // ADD NEW PRODUCT TO FIRESTORE
+        window.saveProductToFirestore = async function(productData) {
+            try {
+                await addDoc(productsColRef, productData);
+                showToast('New Product Saved to Firestore!');
+            } catch (err) {
+                console.error("Error adding product:", err);
+                showToast('Failed to add product.');
+            }
+        };
+
+        // DELETE PRODUCT FROM FIRESTORE
+        window.deleteProductFromFirestore = async function(docId) {
+            try {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', docId));
+                showToast('Product Removed from Firestore');
+            } catch (err) {
+                console.error("Error deleting product:", err);
+            }
+        };
+
+        // SUBMIT APPLICATION TO FIRESTORE
+        window.submitAppToFirestore = async function(appData) {
+            try {
+                await addDoc(appsColRef, appData);
+                showToast('Application Submitted Successfully!');
+            } catch (err) {
+                console.error("Error submitting application:", err);
+                showToast('Failed to submit application.');
+            }
+        };
+
+        // UPDATE APPLICATION STATUS IN FIRESTORE
+        window.updateAppStatusInFirestore = async function(docId, newStatus) {
+            try {
+                const appDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'applications', docId);
+                await updateDoc(appDocRef, { status: newStatus });
+                showToast(`Application Status updated to ${newStatus}`);
+            } catch (err) {
+                console.error("Error updating status:", err);
+            }
+        };
+
+        // DELETE APPLICATION FROM FIRESTORE
+        window.deleteAppFromFirestore = async function(docId) {
+            try {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'applications', docId));
+                showToast('Application Record Deleted');
+            } catch (err) {
+                console.error("Error deleting app:", err);
+            }
+        };
+
+        // Initialize on Window Load
+        window.onload = () => {
+            initFirebaseApp();
+            calculateQist();
+            checkUrlRoute();
+            window.addEventListener('hashchange', checkUrlRoute);
+        };
+    </script>
+
+    <!-- UI APPLICATION LOGIC SCRIPT -->
+    <script>
+        function checkUrlRoute() {
+            const hash = window.location.hash;
+            if (hash === '#admin' || window.location.pathname.endsWith('/admin')) {
+                if (window.isAdminLoggedIn) {
+                    showSection('admin');
+                } else {
+                    promptAdminLogin();
+                }
+            }
+        }
+
+        function toggleAdminAccess() {
+            if (window.isAdminLoggedIn) {
+                showSection('admin');
+            } else {
+                promptAdminLogin();
+            }
+        }
+
+        function promptAdminLogin() {
+            document.getElementById('adminPasswordInput').value = '';
+            document.getElementById('adminAuthError').classList.add('hidden');
+            document.getElementById('adminAuthModal').classList.remove('hidden');
+            document.getElementById('adminAuthModal').classList.add('flex');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('adminPasswordInput').value;
+            if (pass === 'admin10') {
+                window.isAdminLoggedIn = true;
+                closeModal('adminAuthModal');
+                showSection('admin');
+                showToast('Welcome to Admin Dashboard!');
+            } else {
+                document.getElementById('adminAuthError').classList.remove('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            window.isAdminLoggedIn = false;
+            showSection('store');
+            showToast('Logged out from Admin');
+        }
+
+        function showSection(section) {
+            if (section === 'admin') {
+                if (!window.isAdminLoggedIn) {
+                    promptAdminLogin();
+                    return;
+                }
+                document.getElementById('storeView').classList.add('hidden');
+                document.getElementById('adminView').classList.remove('hidden');
+                renderAdminDashboard();
+                window.location.hash = 'admin';
+            } else {
+                document.getElementById('adminView').classList.add('hidden');
+                document.getElementById('storeView').classList.remove('hidden');
+                window.location.hash = '';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderCategories() {
+            const categories = ['All', 'Mobile Phones', 'Electronics & LED', 'Home Appliances', 'Laptops & Computers', 'Bikes & Scooters'];
+            const container = document.getElementById('categoryContainer');
+            
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCategory('${cat}')" 
+                        class="px-4 py-2 rounded-full text-xs font-bold transition ${window.activeCategory === cat ? 'bg-brand-500 text-slate-950 shadow-lg shadow-brand-500/20' : 'bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700'}">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function setCategory(cat) {
+            window.activeCategory = cat;
+            renderCategories();
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const empty = document.getElementById('emptyState');
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+
+            const filtered = (window.products || []).filter(p => {
+                const matchCategory = window.activeCategory === 'All' || p.category === window.activeCategory;
+                const matchSearch = (p.title || '').toLowerCase().includes(searchVal) || (p.specs || '').toLowerCase().includes(searchVal);
+                return matchCategory && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            empty.classList.add('hidden');
+            grid.innerHTML = filtered.map(p => `
+                <div class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-brand-500/50 transition-all group flex flex-col justify-between">
+                    <div>
+                        <!-- Image Container -->
+                        <div class="relative h-48 overflow-hidden bg-slate-900">
+                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/0f172a/10b981?text=QISTZONE'">
+                            <span class="absolute top-3 left-3 text-[10px] uppercase font-bold bg-slate-950/80 text-brand-500 px-2.5 py-1 rounded-md border border-brand-500/30">
+                                ${p.category}
+                            </span>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-5 space-y-3">
+                            <h3 class="font-bold text-white text-base line-clamp-1">${p.title}</h3>
+                            <p class="text-xs text-slate-400 line-clamp-2">${p.specs || ''}</p>
+                            
+                            <div class="pt-2 space-y-1 border-t border-slate-800/80 text-xs">
+                                <div class="flex justify-between text-slate-400">
+                                    <span>Cash Price:</span>
+                                    <span class="font-semibold text-slate-200">PKR ${Number(p.price).toLocaleString()}</span>
+                                </div>
+                                <div class="flex justify-between text-slate-400">
+                                    <span>Advance (20%):</span>
+                                    <span class="font-semibold text-brand-gold">PKR ${Number(p.advance).toLocaleString()}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer -->
+                    <div class="p-5 pt-0">
+                        <div class="bg-brand-500/10 border border-brand-500/20 p-3 rounded-xl mb-4 text-center">
+                            <p class="text-[10px] text-brand-500 font-bold uppercase tracking-wider">Mahana Qist (${p.tenure || 12} Months)</p>
+                            <p class="text-lg font-black text-white">PKR ${Number(p.qist).toLocaleString()} <span class="text-[10px] font-normal text-slate-400">/mo</span></p>
+                        </div>
+
+                        <button onclick="openProductModal('${p.id}')" class="w-full bg-slate-800 hover:bg-brand-600 hover:text-white text-slate-200 font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-signature text-brand-500 group-hover:text-white"></i> Apply on Qist
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts() {
+            renderProducts();
+        }
+
+        function setTenure(months) {
+            window.selectedTenure = months;
+            document.querySelectorAll('.tenure-btn').forEach(btn => {
+                if (parseInt(btn.getAttribute('data-months')) === months) {
+                    btn.className = 'tenure-btn bg-brand-600 text-white border border-brand-500 py-2.5 rounded-xl text-sm font-bold transition text-center';
+                } else {
+                    btn.className = 'tenure-btn bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 py-2.5 rounded-xl text-sm font-bold transition text-center';
+                }
+            });
+            calculateQist();
+        }
+
+        function calculateQist() {
+            const price = parseFloat(document.getElementById('calcPrice').value) || 0;
+            const advancePercent = parseFloat(document.getElementById('calcAdvancePercent').value) || 20;
+            
+            const advanceAmt = Math.round((price * advancePercent) / 100);
+            const remaining = price - advanceAmt;
+            
+            const totalMarkup = remaining * (0.015 * window.selectedTenure);
+            const totalFinanced = remaining + totalMarkup;
+            const monthlyQist = Math.round(totalFinanced / window.selectedTenure);
+
+            document.getElementById('calcAdvanceLabel').innerText = `${advancePercent}% (PKR ${advanceAmt.toLocaleString()})`;
+            document.getElementById('calcDisplayAdvance').innerText = `PKR ${advanceAmt.toLocaleString()}`;
+            document.getElementById('calcDisplayRemaining').innerText = `PKR ${remaining.toLocaleString()}`;
+            document.getElementById('calcDisplayTenure').innerText = `${window.selectedTenure} Months`;
+            document.getElementById('calcDisplayMonthly').innerHTML = `PKR ${monthlyQist.toLocaleString()} <span class="text-xs font-normal text-slate-400">/mo</span>`;
+        }
+
+        function scrollToCalculator() {
+            showSection('store');
+            document.getElementById('calculatorSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openProductModal(id) {
+            const product = (window.products || []).find(p => p.id === id);
+            if (!product) return;
+
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <img src="${product.image}" alt="${product.title}" class="w-full h-56 sm:h-64 object-cover rounded-2xl bg-slate-800 border border-slate-800">
+                        <div class="mt-4 space-y-2">
+                            <span class="text-xs text-brand-500 font-bold uppercase tracking-wider">${product.category}</span>
+                            <h2 class="text-2xl font-extrabold text-white">${product.title}</h2>
+                            <p class="text-xs text-slate-400">${product.specs || ''}</p>
+                        </div>
+
+                        <!-- Installment Summary Table -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 mt-4 space-y-2 text-xs">
+                            <div class="flex justify-between text-slate-400">
+                                <span>Total Price:</span>
+                                <span class="font-bold text-white">PKR ${Number(product.price).toLocaleString()}</span>
+                            </div>
+                            <div class="flex justify-between text-slate-400">
+                                <span>Advance Payment:</span>
+                                <span class="font-bold text-brand-gold">PKR ${Number(product.advance).toLocaleString()}</span>
+                            </div>
+                            <div class="flex justify-between text-slate-400">
+                                <span>Plan Duration:</span>
+                                <span class="font-bold text-slate-200">${product.tenure || 12} Months</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm pt-2 border-t border-slate-800">
+                                <span class="font-bold text-white">Mahana Qist:</span>
+                                <span class="font-black text-brand-500 text-base">PKR ${Number(product.qist).toLocaleString()} /mo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Application Form -->
+                    <div class="bg-slate-950/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-base font-bold text-white mb-3">Installment Application Form</h3>
+                            <form id="applyForm" onsubmit="submitApplication(event, '${product.id}')" class="space-y-3">
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-slate-400 mb-1">Full Name</label>
+                                    <input type="text" id="custName" required placeholder="Ali Ahmed" class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg py-2 px-3 text-xs focus:outline-none focus:border-brand-500">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-slate-400 mb-1">Mobile / WhatsApp No.</label>
+                                    <input type="tel" id="custPhone" required placeholder="0300 1234567" class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg py-2 px-3 text-xs focus:outline-none focus:border-brand-500">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-slate-400 mb-1">CNIC Number</label>
+                                    <input type="text" id="custCNIC" required placeholder="42101-XXXXXXX-X" class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg py-2 px-3 text-xs focus:outline-none focus:border-brand-500">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-slate-400 mb-1">City</label>
+                                    <input type="text" id="custCity" required placeholder="Karachi / Lahore / Islamabad" class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg py-2 px-3 text-xs focus:outline-none focus:border-brand-500">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-slate-400 mb-1">Monthly Income (PKR)</label>
+                                    <input type="number" id="custIncome" required placeholder="75000" class="w-full bg-slate-900 border border-slate-800 text-white rounded-lg py-2 px-3 text-xs focus:outline-none focus:border-brand-500">
+                                </div>
+
+                                <button type="submit" class="w-full bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white font-bold py-2.5 rounded-xl text-xs transition shadow-lg shadow-brand-500/20 mt-2">
+                                    Submit Application to Firestore
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('productDetailModal').classList.remove('hidden');
+            document.getElementById('productDetailModal').classList.add('flex');
+        }
+
+        function submitApplication(e, productId) {
+            e.preventDefault();
+            const product = (window.products || []).find(p => p.id === productId);
+
+            const newApp = {
+                appCode: 'APP-' + Math.floor(100000 + Math.random() * 900000),
+                date: new Date().toLocaleDateString('en-PK'),
+                customerName: document.getElementById('custName').value,
+                phone: document.getElementById('custPhone').value,
+                cnic: document.getElementById('custCNIC').value,
+                city: document.getElementById('custCity').value,
+                income: document.getElementById('custIncome').value,
+                productTitle: product ? product.title : 'Item',
+                qist: product ? product.qist : 0,
+                advance: product ? product.advance : 0,
+                status: 'Pending'
+            };
+
+            if (window.submitAppToFirestore) {
+                window.submitAppToFirestore(newApp);
+            }
+
+            closeModal('productDetailModal');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.getElementById(modalId).classList.remove('flex');
+        }
+
+        function renderAdminDashboard() {
+            document.getElementById('statTotalProducts').innerText = (window.products || []).length;
+            document.getElementById('statTotalApps').innerText = (window.applications || []).length;
+            
+            const approved = (window.applications || []).filter(a => a.status === 'Approved').length;
+            document.getElementById('statApprovedApps').innerText = approved;
+            document.getElementById('appBadge').innerText = (window.applications || []).length;
+
+            renderAdminProductsTable();
+            renderAdminAppsTable();
+        }
+
+        function autoCalcAdminQist() {
+            const price = parseFloat(document.getElementById('pPrice').value) || 0;
+            const advance = parseFloat(document.getElementById('pAdvance').value) || 0;
+            const tenure = parseInt(document.getElementById('pTenure').value) || 12;
+
+            if (price > 0 && advance < price) {
+                const remaining = price - advance;
+                const markup = remaining * (0.015 * tenure);
+                const qist = Math.round((remaining + markup) / tenure);
+                document.getElementById('pQist').value = qist;
+            } else {
+                document.getElementById('pQist').value = '';
+            }
+        }
+
+        function handleProductSubmit(e) {
+            e.preventDefault();
+            const newP = {
+                title: document.getElementById('pTitle').value,
+                category: document.getElementById('pCategory').value,
+                price: parseFloat(document.getElementById('pPrice').value),
+                advance: parseFloat(document.getElementById('pAdvance').value),
+                qist: parseFloat(document.getElementById('pQist').value),
+                tenure: parseInt(document.getElementById('pTenure').value),
+                image: document.getElementById('pImage').value,
+                stock: document.getElementById('pStock').value,
+                specs: document.getElementById('pSpecs').value || 'Brand New Original Warranty'
+            };
+
+            if (window.saveProductToFirestore) {
+                window.saveProductToFirestore(newP);
+            }
+
+            document.getElementById('addProductForm').reset();
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product from Firestore?')) {
+                if (window.deleteProductFromFirestore) {
+                    window.deleteProductFromFirestore(id);
+                }
+            }
+        }
+
+        function renderAdminProductsTable() {
+            const tbody = document.getElementById('adminProductsTable');
+            tbody.innerHTML = (window.products || []).map(p => `
+                <tr class="hover:bg-slate-800/50 transition">
+                    <td class="p-4 flex items-center gap-3">
+                        <img src="${p.image}" class="w-10 h-10 object-cover rounded-lg bg-slate-800">
+                        <div>
+                            <p class="font-bold text-white text-sm">${p.title}</p>
+                            <span class="text-[10px] text-slate-400">${p.stock}</span>
+                        </div>
+                    </td>
+                    <td class="p-4">${p.category}</td>
+                    <td class="p-4 font-bold text-white">PKR ${Number(p.price).toLocaleString()}</td>
+                    <td class="p-4 text-brand-gold font-medium">PKR ${Number(p.advance).toLocaleString()}</td>
+                    <td class="p-4 text-brand-500 font-bold">PKR ${Number(p.qist).toLocaleString()} /mo</td>
+                    <td class="p-4">
+                        <button onclick="deleteProduct('${p.id}')" class="text-rose-400 hover:text-rose-300 bg-rose-500/10 p-2 rounded-lg transition">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderAdminAppsTable() {
+            const tbody = document.getElementById('adminAppsTable');
+            const apps = window.applications || [];
+
+            if (apps.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-500">No applications received in Firestore yet.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = apps.map(a => `
+                <tr class="hover:bg-slate-800/50 transition">
+                    <td class="p-4 text-xs text-slate-400">${a.date}<br><span class="font-mono text-[10px]">${a.appCode || a.id}</span></td>
+                    <td class="p-4">
+                        <p class="font-bold text-white">${a.customerName}</p>
+                        <p class="text-xs text-slate-400">${a.phone} | ${a.city}</p>
+                        <p class="text-[10px] text-slate-500">CNIC: ${a.cnic}</p>
+                    </td>
+                    <td class="p-4 font-medium text-slate-200">${a.productTitle}</td>
+                    <td class="p-4 text-brand-500 font-bold">PKR ${Number(a.qist).toLocaleString()} /mo</td>
+                    <td class="p-4">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${
+                            a.status === 'Approved' ? 'bg-brand-500/20 text-brand-500' :
+                            a.status === 'Rejected' ? 'bg-rose-500/20 text-rose-400' :
+                            'bg-amber-500/20 text-amber-400'
+                        }">
+                            ${a.status}
+                        </span>
+                    </td>
+                    <td class="p-4 space-x-1">
+                        <button onclick="updateAppStatus('${a.id}', 'Approved')" class="text-brand-500 hover:bg-brand-500/20 p-2 rounded-lg transition" title="Approve">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </button>
+                        <button onclick="updateAppStatus('${a.id}', 'Rejected')" class="text-rose-400 hover:bg-rose-500/20 p-2 rounded-lg transition" title="Reject">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </button>
+                        <button onclick="deleteApp('${a.id}')" class="text-slate-500 hover:text-rose-400 p-2 rounded-lg transition" title="Delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateAppStatus(id, newStatus) {
+            if (window.updateAppStatusInFirestore) {
+                window.updateAppStatusInFirestore(id, newStatus);
+            }
+        }
+
+        function deleteApp(id) {
+            if (confirm('Delete this application record?')) {
+                if (window.deleteAppFromFirestore) {
+                    window.deleteAppFromFirestore(id);
+                }
+            }
+        }
+
+        function switchAdminTab(tab) {
+            const btnProducts = document.getElementById('tabBtnProducts');
+            const btnApps = document.getElementById('tabBtnApps');
+            const viewProducts = document.getElementById('adminTabProducts');
+            const viewApps = document.getElementById('adminTabApps');
+
+            if (tab === 'products') {
+                btnProducts.className = 'pb-3 font-bold text-brand-500 border-b-2 border-brand-500 transition';
+                btnApps.className = 'pb-3 font-bold text-slate-400 hover:text-slate-200 transition flex items-center gap-2';
+                viewProducts.classList.remove('hidden');
+                viewApps.classList.add('hidden');
+            } else {
+                btnApps.className = 'pb-3 font-bold text-brand-500 border-b-2 border-brand-500 transition flex items-center gap-2';
+                btnProducts.className = 'pb-3 font-bold text-slate-400 hover:text-slate-200 transition';
+                viewApps.classList.remove('hidden');
+                viewProducts.classList.add('hidden');
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+```
